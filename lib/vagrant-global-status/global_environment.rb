@@ -80,12 +80,16 @@ module VagrantPlugins
       end
 
       def run_vagrant_status
-        cmd = "cd #{@path} && "
-        if plugin_sources?
-          cmd << "bundle exec "
+        if File.exists?(@path)
+          cmd = "cd #{@path} && "
+          if plugin_sources?
+            cmd << "bundle exec "
+          end
+          cmd << "vagrant status"
+          `#{cmd}`
+        else
+          `echo ""`
         end
-        cmd << "vagrant status"
-        `#{cmd}`
       end
 
       def plugin_sources?
