@@ -12,6 +12,8 @@ module VagrantPlugins
 
       # REFACTOR: Extract a machine class
       def status(all = false)
+        return "  Not found!" unless File.exists?(@path)
+
         matches = vagrant_status.scan(/(\w[\w-]+)\s+(\w[\w\s]+)\s+\((\w+)\)/)
         matches.map do |vm, status, provider|
           if all || @machine_names.include?(vm)
