@@ -19,8 +19,10 @@ module VagrantPlugins
 
         registry = GlobalRegistry.new(@env.home_path.join('machine-environments.json'))
         registry.environments.each do |env|
-          @env.ui.info "\n#{env.path}"
-          @env.ui.info "#{env.status(options[:all])}"
+          if File.exists?(env.path)
+            @env.ui.info "\n#{env.path}"
+            @env.ui.info "#{env.status(options[:all])}"
+          end
         end
 
         0
