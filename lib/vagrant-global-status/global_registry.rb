@@ -22,7 +22,7 @@ module VagrantPlugins
       def initialize(statefile)
         @statefile = statefile
         @current_state = if @statefile.file?
-          JSON.parse(@statefile.read)
+          JSON.parse(@statefile.read(:encoding => Encoding::UTF_8))
         else
           { 'environments' => {} }
         end
