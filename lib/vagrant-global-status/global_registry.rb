@@ -60,7 +60,7 @@ module VagrantPlugins
 
       def fix_current_status 
         @current_state['environments'].each_with_object({}) do |(env, data), hash|
-          if ! File.exist? env 
+          if not File.exist? env or not File.exist? env + "/Vagrantfile" 
             @current_state['environments'].delete(env)
           end
         end
