@@ -21,8 +21,9 @@ module VagrantPlugins
 
       def initialize(statefile)
         @statefile = statefile
-        @current_state = if @statefile.file?
-          JSON.parse(@statefile.read(:encoding => Encoding::UTF_8))
+        if @statefile.file?
+          @current_state = JSON.parse(@statefile.read(:encoding => Encoding::UTF_8))
+          fix_current_status
         else
           { 'environments' => {} }
         end
@@ -54,6 +55,15 @@ module VagrantPlugins
         global_environment = @current_state['environments'][root_path]
         global_environment['machines'].delete({'name' => machine_name})
 
+        write_statefile
+      end
+
+      def fix_current_status 
+        @current_state['environments'].each_with_object({}) do |(env, data), hash|
+          if ! File.exist? env 
+            @current_state['environments'].delete(env)
+          end
+        end
         write_statefile
       end
 
