@@ -25,7 +25,7 @@ module VagrantPlugins
           @current_state = JSON.parse(@statefile.read(:encoding => Encoding::UTF_8))
           fix_current_status
         else
-          { 'environments' => {} }
+          @current_state = { 'environments' => {} }
         end
       end
 
