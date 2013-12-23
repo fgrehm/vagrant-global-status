@@ -25,7 +25,8 @@ module VagrantPlugins
         matches = vagrant_status.scan(/(\w[\w-]+)\s+(\w[\w\s]+)\s+\((\w+)\)/)
         matches.map do |vm, status, provider|
           if all || (@machine_names.include?(vm) and status == "running")
-            "  #{vm.ljust(15)} #{status} (#{provider})     #{@created_at[vm]}"
+            provider = "(#{provider})"
+            "  #{vm.ljust(12)} #{status.ljust(12)} #{provider.ljust(14)} #{@created_at[vm]}"
           end
         end.compact.join("\n")
       end
