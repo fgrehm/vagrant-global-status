@@ -7,7 +7,8 @@ module VagrantPlugins
         statefile = params.fetch(:home_path).join('machine-environments.json')
         new(statefile).register(
           params.fetch(:machine_name).to_s,
-          params.fetch(:root_path).to_s
+          params.fetch(:root_path).to_s,
+          Time.now.to_i.to_s
         )
       end
 
@@ -37,13 +38,13 @@ module VagrantPlugins
         @environments.values
       end
 
-      def register(machine_name, root_path)
+      def register(machine_name, root_path, created_at)
         @current_state['environments'][root_path] ||= { 'machines' => [] }
 
         global_environment = @current_state['environments'][root_path]
         machine = { 'name' => machine_name }
         unless global_environment['machines'].include?(machine)
-          global_environment['machines'] << {'name' => machine_name}
+          global_environment['machines'] << {'name' => machine_name, 'created_at' => created_at}
         end
 
         write_statefile
@@ -53,7 +54,7 @@ module VagrantPlugins
         @current_state['environments'][root_path] ||= { 'machines' => [] }
 
         global_environment = @current_state['environments'][root_path]
-        global_environment['machines'].delete({'name' => machine_name})
+        global_environment['machines'].delete_if {|machine| machine["name"] = machine_name }
 
         write_statefile
       end
