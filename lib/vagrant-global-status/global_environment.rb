@@ -8,6 +8,14 @@ module VagrantPlugins
       def initialize(path, data)
         @path = Pathname(path)
         @machine_names = Array(data['machines']).map{|machine| machine['name']}
+        @created_at = {} 
+        data['machines'].each do |machine|
+          ctime = machine['created_at']
+          if ctime =~ /[\d]+/
+            ctime = Time.at(ctime.to_i).to_s
+          end
+          @created_at.store(machine['name'], ctime) 
+        end
       end
 
       # REFACTOR: Extract a machine class
@@ -17,7 +25,8 @@ module VagrantPlugins
         matches = vagrant_status.scan(/(\w[\w-]+)\s+(\w[\w\s]+)\s+\((\w+)\)/)
         matches.map do |vm, status, provider|
           if all || (@machine_names.include?(vm) and status == "running")
-            "  #{vm.ljust(15)} #{status} (#{provider})"
+            provider = "(#{provider})"
+            "  #{vm.ljust(12)} #{status.ljust(12)} #{provider.ljust(14)} #{@created_at[vm]}"
           end
         end.compact.join("\n")
       end
