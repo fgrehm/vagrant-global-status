@@ -1,5 +1,5 @@
 module VagrantPlugins
   module GlobalStatus
-    VERSION = "0.1.4"
+    VERSION = "0.1.5.dev"
   end
 end
