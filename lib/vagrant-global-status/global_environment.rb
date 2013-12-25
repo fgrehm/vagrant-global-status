@@ -26,13 +26,13 @@ module VagrantPlugins
         matches.map do |vm, status, provider|
           if all || (@machine_names.include?(vm) and status == "running")
             provider = "(#{provider})"
-            "  #{vm.ljust(12)} #{status_line(status.ljust(12))} #{provider.ljust(14)} #{@created_at[vm]}"
+            "  #{vm.ljust(12)} #{status_line(status, 12)} #{provider.ljust(14)} #{@created_at[vm]}"
           end
         end.compact.join("\n")
       end
 
-      def status_line(status)
-        case status.strip
+      def status_line(status, length)
+        case status
         when "running" then
           color = 32 # green
         when "not running", "poweroff" then
@@ -40,9 +40,9 @@ module VagrantPlugins
         when "not created" then
           color = 34 # blue
         else
-          return status
+          return status.ljust(length)
         end
-        sprintf("\e[%dm%s\e[m", color, status)
+        sprintf("\e[%dm%s\e[m", color, status.ljust(length))
       end
 
       def vagrant_status
