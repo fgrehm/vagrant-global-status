@@ -1,3 +1,8 @@
+## [0.1.4](https://github.com/fgrehm/vagrant-global-status/compare/v0.1.3...v0.1.4) (December 25, 2013)
+
+ - Display the time when the VM was created [GH-3]
+ - Display VM status with color [GH-12]
+
 ## [0.1.3](https://github.com/fgrehm/vagrant-global-status/compare/v0.1.2...v0.1.3) (December 17, 2013)
 
  - Stop displaying non-running machines without -a option [GH-1]

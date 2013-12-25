@@ -39,7 +39,6 @@ used for development of a Vagrant plugin using Bundler.
 ## Current limitations / ideas for contributions
 
 * Keeps track of active vagrant-lxc and VirtualBox VMs only
-* Blows up if the `Vagrantfile` gets removed from the registered path
 * Detect orphaned machines
 
 ## Contributing
