@@ -20,9 +20,9 @@ module VagrantPlugins
         )
       end
 
-      def initialize(statefile, option = {})
+      def initialize(statefile, options = {})
         @statefile = statefile
-        @option = option 
+        @options = options 
         if @statefile.file?
           @current_state = JSON.parse(@statefile.read(:encoding => Encoding::UTF_8))
           fix_current_status
@@ -65,7 +65,7 @@ module VagrantPlugins
           if not File.exist? env or not File.exist? env + "/Vagrantfile" 
             @current_state['environments'].delete(env)
           end
-          if @option[:remove_terminated_vms] and @current_state['environments'][env] == { 'machines' => [] }
+          if @options[:remove_terminated_vms] and @current_state['environments'][env] == { 'machines' => [] }
             @current_state['environments'].delete(env)
           end
         end
