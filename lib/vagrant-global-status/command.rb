@@ -12,7 +12,7 @@ module VagrantPlugins
           o.on("-a", "--all", "Displays information about all machines (instead of just the active ones)") do |f|
             options[:all] = true
           end
-          o.on("-r", "--remove_terminated_vms", "Removes the entries of terminated VMs") do |f|
+          o.on("-r", "--remove-terminated-vms", "Removes the entries of terminated VMs") do |f|
             options[:remove_terminated_vms] = true
           end
         end
