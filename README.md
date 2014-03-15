@@ -4,7 +4,7 @@ A proof of concept [Vagrant](http://www.vagrantup.com/) plugin that keeps
 track of vagrant machines and provides a command for listing the status of all
 known machines.
 
-**NOTICE: This plugin is no longer being maintained as its functionality [has been implemented on Vagrant corehttps://github.com/mitchellh/vagrant/pull/3225) and will be available with Vagrant 1.6+.**
+**NOTICE: This plugin is no longer being maintained as its functionality [has been implemented on Vagrant core](https://github.com/mitchellh/vagrant/pull/3225) and will be available with Vagrant 1.6+.**
 
 ## Installation
 
